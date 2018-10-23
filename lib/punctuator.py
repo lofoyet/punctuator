@@ -3,8 +3,8 @@ from __future__ import division
 
 import os
 
-import theano
 import numpy as np
+import theano
 import theano.tensor as T
 
 import models

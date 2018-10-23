@@ -5,10 +5,15 @@ Check out https://github.com/ottokart/punctuator2
 
 ## How to use
 
-```python
-import sys
-sys.path.append("bomoda2/fireworks")
+### First install required python packages
 
+```shell
+pip install -r requirements.txt
+```
+
+### Then go to python python
+
+```python
 # define your own tokenize function
 from nltk.tokenize import TweetTokenizer
 tknzr = TweetTokenizer()

@@ -1,9 +1,10 @@
 # coding: utf-8
 from __future__ import division
 
-import theano
-import cPickle
 import os
+import cPickle
+
+import theano
 import theano.tensor as T
 import numpy as np
 
