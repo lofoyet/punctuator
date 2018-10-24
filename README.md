@@ -11,7 +11,7 @@ Check out https://github.com/ottokart/punctuator2
 pip install -r requirements.txt
 ```
 
-### Then go to python python
+### Then go to python
 
 ```python
 # define your own tokenize function
