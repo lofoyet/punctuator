@@ -2,6 +2,7 @@
 from __future__ import division
 
 import os
+import string
 
 import numpy as np
 import theano
@@ -17,6 +18,8 @@ PROJ_DIR = os.path.dirname(os.path.dirname(__file__))
 class Punctuator(object):
     """Punctuator class, used to add missing puntuation."""
 
+    puncs = set(string.punctuation)
+
     def __init__(
         self,
         tokenize_func,
@@ -24,7 +27,7 @@ class Punctuator(object):
     ):
         """Init."""
         default_model_path = os.path.join(
-            PROJ_DIR, "resources", "INTERSPEECH-T-BRNN.pcl"
+            PROJ_DIR, "resources", "Demo-Europarl-EN.pcl"
         )
         self.x = T.imatrix('x')
         self.model_path = model_path or default_model_path
@@ -48,9 +51,10 @@ class Punctuator(object):
              5: u':',
              6: u';',
              7: u'.'}
+
         # {v: k for k, v in self.net.y_vocabulary.items()}
 
-    def punctuate(self, text):
+    def _tokenize_and_insert_punctuation(self, text):
         """Add missing puncation, no need to break long paragraph."""
         if not isinstance(text, unicode) or len(text) == 0:
             print "Wrong input"
@@ -69,7 +73,23 @@ class Punctuator(object):
             i += step
             if subsequence[-1] == data.END:
                 break
-        return results
+
+        print results
+        add_space_after_punc = []
+        for token in results:
+            if token in self.puncs:
+                add_space_after_punc.append(token)
+                add_space_after_punc.append(" ")
+            else:
+                add_space_after_punc.append(token)
+        return add_space_after_punc
+
+    def punctuate(self, text):
+        """Add missing puncation, no need to break long paragraph."""
+        inserted = self._tokenize_and_insert_punctuation(text)
+        print inserted
+        joined = u"".join(inserted)
+        return joined
 
     def _tokenize(self, text):
         # tokenize text into words

@@ -23,5 +23,6 @@ P = Punctuator(
     tokenize_func=tknzr.tokenize
     )
 P.load()
-P.punctuate("hi this is the best-looking guy on globe why you laugh get lost")
+P.punctuate(u"hi this is the best-looking guy on globe why you laugh get lost")
+# return will be like u"hi, this is the best-looking guy on globe, why you laugh get lost? "
 ```
